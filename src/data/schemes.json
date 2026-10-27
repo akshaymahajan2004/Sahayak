@@ -1,0 +1,117 @@
+[
+    {
+        "id": "sch-01",
+        "title": "Post-Matric Scholarship for Higher Education",
+        "category": "Education",
+        "description": "Financial support for students belonging to economically weaker sections pursuing undergraduate or postgraduate courses.",
+        "official_link": "https://scholarships.gov.in",
+        "eligibility_rules": {
+            "min_age": 17,
+            "max_age": 25,
+            "max_annual_income": 250000,
+            "allowed_occupations": [
+                "Student"
+            ],
+            "allowed_categories": [
+                "All",
+                "General",
+                "OBC",
+                "SC",
+                "ST"
+            ]
+        },
+        "required_documents": [
+            "Aadhaar Card",
+            "Income Certificate",
+            "Previous Year Marksheet",
+            "Bank Passbook Copy"
+        ]
+    },
+    {
+        "id": "sch-02",
+        "title": "Annapurna Food Security Scheme",
+        "category": "Healthcare",
+        "description": "Provides subsidized food grains and nutritional support for senior citizens who have little to no income.",
+        "official_link": "https://nfsa.gov.in",
+        "eligibility_rules": {
+            "min_age": 60,
+            "max_age": 100,
+            "max_annual_income": 100000,
+            "allowed_occupations": [
+                "Unemployed",
+                "Retired",
+                "Farmer"
+            ],
+            "allowed_categories": [
+                "All",
+                "General",
+                "OBC",
+                "SC",
+                "ST"
+            ]
+        },
+        "required_documents": [
+            "Age Proof / Voter ID",
+            "BPL Card or Income Proof",
+            "Passport Size Photograph"
+        ]
+    },
+    {
+        "id": "sch-03",
+        "title": "Krishi Unnati Farmer Equipment Subsidy",
+        "category": "Agriculture",
+        "description": "Capital subsidy for purchasing modern agricultural machinery, tractors, and irrigation equipment.",
+        "official_link": "https://agricoop.nic.in",
+        "eligibility_rules": {
+            "min_age": 18,
+            "max_age": 70,
+            "max_annual_income": 500000,
+            "allowed_occupations": [
+                "Farmer"
+            ],
+            "allowed_categories": [
+                "All",
+                "General",
+                "OBC",
+                "SC",
+                "ST"
+            ]
+        },
+        "required_documents": [
+            "Land Ownership Documents (7/12 or Khata)",
+            "Aadhaar Card",
+            "Bank Account Details",
+            "Quotation of Machinery"
+        ]
+    },
+    {
+        "id": "sch-04",
+        "title": "Mahila Udyami Micro-Enterprise Grant",
+        "category": "Business",
+        "description": "Seed capital and low-interest loan backing for women entrepreneurs starting small local businesses or cottage industries.",
+        "official_link": "https://msme.gov.in",
+        "eligibility_rules": {
+            "min_age": 21,
+            "max_age": 50,
+            "max_annual_income": 400000,
+            "allowed_occupations": [
+                "Self-Employed",
+                "Business Owner",
+                "Unemployed"
+            ],
+            "allowed_categories": [
+                "All",
+                "General",
+                "OBC",
+                "SC",
+                "ST"
+            ]
+        },
+        "required_documents": [
+            "Identity Proof (PAN / Aadhaar)",
+            "Business Project Proposal",
+            "Address Proof of Business",
+            "Canceled Cheque / Bank Details"
+        ]
+    }
+]
