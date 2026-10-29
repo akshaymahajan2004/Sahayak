@@ -1,14 +1,15 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, ExternalLink, FileText, ShieldAlert, Sparkles } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ExternalLink, FileText, ShieldAlert, Sparkles, Filter } from "lucide-react";
 import { evaluateEligibility } from "@/lib/eligibilityEngine";
 import { Scheme, UserProfile } from "@/lib/types";
 
 function ResultsContent() {
     const searchParams = useSearchParams();
+    const [selectedCategory, setSelectedCategory] = useState<string>("All");
 
     // Extract query parameters from URL
     const age = Number(searchParams.get("age") || 22);
@@ -28,6 +29,12 @@ function ResultsContent() {
     // Run eligibility engine
     const matchedSchemes: Scheme[] = evaluateEligibility(userProfile);
 
+    // Filter schemes based on selected category tab
+    const categories = ["All", "Education", "Agriculture", "Business", "Healthcare"];
+    const filteredSchemes = selectedCategory === "All"
+        ? matchedSchemes
+        : matchedSchemes.filter((s) => s.category === selectedCategory);
+
     return (
         <div className="max-w-4xl mx-auto px-4 py-12">
             {/* Top Navigation / Back */}
@@ -45,7 +52,7 @@ function ResultsContent() {
             </div>
 
             {/* Header */}
-            <div className="mb-10">
+            <div className="mb-8">
                 <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
                     Your Eligible Welfare Schemes
                 </h1>
@@ -54,10 +61,29 @@ function ResultsContent() {
                 </p>
             </div>
 
+            {/* Category Filter Tabs */}
+            {matchedSchemes.length > 0 && (
+                <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6">
+                    <Filter className="w-4 h-4 text-slate-400 mr-1 shrink-0" />
+                    {categories.map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setSelectedCategory(cat)}
+                            className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition ${selectedCategory === cat
+                                ? "bg-emerald-600 text-white shadow-sm"
+                                : "bg-white border border-slate-200 text-slate-600 hover:border-slate-300"
+                                }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             {/* Schemes Grid */}
-            {matchedSchemes.length > 0 ? (
+            {filteredSchemes.length > 0 ? (
                 <div className="space-y-6">
-                    {matchedSchemes.map((scheme) => (
+                    {filteredSchemes.map((scheme) => (
                         <div
                             key={scheme.id}
                             className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition"
@@ -101,28 +127,27 @@ function ResultsContent() {
                     ))}
                 </div>
             ) : (
-                /* Fallback if zero schemes match */
+                /* Fallback if category has no matches or zero schemes match */
                 <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
                     <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4">
                         <ShieldAlert className="w-6 h-6" />
                     </div>
-                    <h2 className="text-lg font-bold text-slate-900 mb-2">No direct schemes found for this profile</h2>
+                    <h2 className="text-lg font-bold text-slate-900 mb-2">No schemes found in this category</h2>
                     <p className="text-slate-600 text-sm max-w-md mx-auto mb-6">
-                        Try adjusting your annual income or occupation criteria in the quiz to explore other regional grants and subsidies.
+                        Try selecting a different filter tab or modifying your quiz profile answers.
                     </p>
-                    <Link
-                        href="/quiz"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 text-white font-semibold text-sm hover:bg-emerald-700 transition"
+                    <button
+                        onClick={() => setSelectedCategory("All")}
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-emerald-600 transition"
                     >
-                        <span>Modify Quiz Answers</span>
-                    </Link>
+                        Show All Schemes
+                    </button>
                 </div>
             )}
         </div>
     );
 }
 
-// Wrapped in Suspense because of useSearchParams in Next.js App Router
 export default function ResultsPage() {
     return (
         <Suspense fallback={<div className="text-center py-20 text-slate-500 font-medium">Evaluating your eligibility...</div>}>
